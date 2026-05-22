@@ -1,0 +1,64 @@
+{
+  "name": "migrare",
+  "version": "0.1.0-beta.1",
+  "description": "CLI tool to migrate Tableau reports into modern ReactJS dashboards",
+  "type": "module",
+  "main": "./dist/index.js",
+  "bin": {
+    "migrare": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsx src/cli.ts",
+    "start": "node dist/cli.js",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build",
+    "test": "vitest run",
+    "test:unit": "vitest run src",
+    "test:watch": "vitest",
+    "lint": "echo \"Lint not configured yet\"",
+    "link": "npm link"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raguvindtharanitharan/migrare.git"
+  },
+  "keywords": [
+    "tableau",
+    "react",
+    "migration",
+    "dashboard",
+    "cli",
+    "opensource",
+    "data-visualization"
+  ],
+  "author": "Raguvind Tharanitharan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/raguvindtharanitharan/migrare/issues"
+  },
+  "homepage": "https://github.com/raguvindtharanitharan/migrare#readme",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.5.8",
+    "@types/node": "^22.15.0",
+    "tsup": "^8.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.0",
+    "vitest": "^2.0.0"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.17",
+    "chalk": "^5.4.0",
+    "commander": "^13.0.0",
+    "fast-xml-parser": "^5.8.0",
+    "yaml": "^2.0.0"
+  }
+}
