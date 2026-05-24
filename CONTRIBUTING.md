@@ -1,16 +1,16 @@
-# Contributing to migrare
+# Contributing to ingi
 
-Thank you for your interest in contributing to migrare! 🎉
+Thank you for your interest in contributing to ingi! 🎉
 
-migrare is an open-source CLI that helps people migrate away from expensive Tableau licenses into beautiful, maintainable React dashboards.
+ingi is an open-source CLI that helps people migrate away from expensive Tableau licenses into beautiful, maintainable React dashboards.
 
 ## How to Contribute
 
 ### Reporting Bugs
 
-- Use the [GitHub Issues](https://github.com/raguvindtharanitharan/migrare/issues) page
+- Use the [GitHub Issues](https://github.com/raguvindtharanitharan/ingi/issues) page
 - Include:
-  - migrare version (`migrare --version`)
+  - ingi version (`ingi --version`)
   - Node.js version
   - Tableau version + sample .twbx (if possible and safe to share)
   - Exact command + full error output
@@ -25,8 +25,8 @@ We love ideas! Please open an issue with:
 ### Development Setup
 
 ```bash
-git clone https://github.com/raguvindtharanitharan/migrare.git
-cd migrare
+git clone https://github.com/raguvindtharanitharan/ingi.git
+cd ingi
 npm install
 npm run dev -- --help
 ```

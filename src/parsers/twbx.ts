@@ -57,7 +57,7 @@ export function loadTwbx(twbxPath: string): ParsedTwbx {
     // sniffing the first bytes for an XML prolog.
     if (looksLikeRawTwbXml(absolute)) {
       throw new Error(
-        `${twbxPath} looks like raw .twb XML, not a packaged .twbx archive. Rename it to .twb (or repackage with its data extract) and run migrare analyze again.`
+        `${twbxPath} looks like raw .twb XML, not a packaged .twbx archive. Rename it to .twb (or repackage with its data extract) and run ingi analyze again.`
       );
     }
     throw err;

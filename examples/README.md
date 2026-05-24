@@ -1,6 +1,6 @@
 # Examples
 
-Real Tableau workbooks (`.twbx`) used to develop and test **migrare**.
+Real Tableau workbooks (`.twbx`) used to develop and test **ingi**.
 
 ## What this folder is for
 

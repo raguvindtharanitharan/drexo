@@ -1,11 +1,11 @@
 {
-  "name": "migrare",
+  "name": "ingi",
   "version": "0.1.0-beta.1",
   "description": "CLI tool to migrate Tableau reports into modern ReactJS dashboards",
   "type": "module",
   "main": "./dist/index.js",
   "bin": {
-    "migrare": "dist/cli.js"
+    "ingi": "dist/cli.js"
   },
   "files": [
     "dist",
@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/raguvindtharanitharan/migrare.git"
+    "url": "git+https://github.com/raguvindtharanitharan/ingi.git"
   },
   "keywords": [
     "tableau",
@@ -40,9 +40,9 @@
   "author": "Raguvind Tharanitharan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/raguvindtharanitharan/migrare/issues"
+    "url": "https://github.com/raguvindtharanitharan/ingi/issues"
   },
-  "homepage": "https://github.com/raguvindtharanitharan/migrare#readme",
+  "homepage": "https://github.com/raguvindtharanitharan/ingi#readme",
   "engines": {
     "node": ">=20.0.0"
   },

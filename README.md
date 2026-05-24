@@ -2,14 +2,14 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/assets/logo-dark.png">
     <source media="(prefers-color-scheme: light)" srcset="docs/assets/logo-light.png">
-    <img alt="Migrare" src="assets/migrare-logo-light.png">
+    <img alt="ingi" src="assets/ingi-logo-light.png">
   </picture>
 </p>
 <p align="center" style="margin-top: -40px">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/assets/logo-word-dark.png">
     <source media="(prefers-color-scheme: light)" srcset="docs/assets/logo-word-light.png">
-    <img alt="Migrare" src="assets/logo-word-light.png" width="120">
+    <img alt="ingi" src="assets/logo-word-light.png" width="120">
   </picture>
 </p>
 
@@ -20,8 +20,8 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/migrare">
-    <img src="https://img.shields.io/npm/v/migrare.svg" alt="npm version">
+  <a href="https://www.npmjs.com/package/ingi">
+    <img src="https://img.shields.io/npm/v/ingi.svg" alt="npm version">
   </a>
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
@@ -29,19 +29,19 @@
   <a href="https://nodejs.org/">
     <img src="https://img.shields.io/badge/node-%3E%3D20-brightgreen" alt="Node.js">
   </a>
-  <a href="https://github.com/RaguvindTharanitharan/migrare/issues">
+  <a href="https://github.com/RaguvindTharanitharan/ingi/issues">
     <img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg" alt="Contributions Welcome">
   </a>
 </p>
 
 ---
 
-**migrare** is an open-source Node.js CLI that turns Tableau workbooks (`.twb` / `.twbx`) into clean, AI-readable metadata files today — and runnable React dashboard apps in v0.2.
+**ingi** is an open-source Node.js CLI that turns Tableau workbooks (`.twb` / `.twbx`) into clean, AI-readable metadata files today — and runnable React dashboard apps in v0.2.
 
 Stop paying per-user Tableau licenses for internal dashboards. Own your code, own your metadata.
 
-> **v0.1 (current):** `migrare analyze` produces a canonical metadata file (markdown + YAML) describing the workbook. Human-readable, agent-readable, paste-into-ChatGPT-able.
-> **v0.2 (next):** `migrare migrate` reads that metadata and emits a Vite + React app, deployable anywhere.
+> **v0.1 (current):** `ingi analyze` produces a canonical metadata file (markdown + YAML) describing the workbook. Human-readable, agent-readable, paste-into-ChatGPT-able.
+> **v0.2 (next):** `ingi migrate` reads that metadata and emits a Vite + React app, deployable anywhere.
 
 ---
 
@@ -51,13 +51,13 @@ Stop paying per-user Tableau licenses for internal dashboards. Own your code, ow
 Tableau Workbook (.twb / .twbx)
         │
         ▼
-   migrare analyze
+   ingi analyze
         │
         ▼
   .model.md  (metadata — markdown + YAML)
         │
         ▼
-   migrare migrate  [v0.2]
+   ingi migrate  [v0.2]
         │
         ▼
    React App (Vite)
@@ -78,7 +78,7 @@ Tableau Workbook (.twb / .twbx)
 - **Flexible Data** — Static JSON, API adapters, or live connections
 - **Great Developer Experience** — TypeScript, modern tooling, easy to customize generated code
 
-> **Current status**: v0.1 metadata pipeline ships. `migrare analyze` runs end-to-end on real workbooks. React generation lands in v0.2. Contributions welcome!
+> **Current status**: v0.1 metadata pipeline ships. `ingi analyze` runs end-to-end on real workbooks. React generation lands in v0.2. Contributions welcome!
 
 ---
 
@@ -93,23 +93,23 @@ Tableau Workbook (.twb / .twbx)
 
 ```bash
 # Run instantly with npx (recommended while in development)
-npx migrare@latest --help
+npx ingi@latest --help
 
 # Or install globally
-npm install -g migrare
+npm install -g ingi
 ```
 
 ### Basic Usage
 
 ```bash
 # Generate the metadata file for a workbook
-migrare analyze ./examples/giving-renewal-summary.twbx
+ingi analyze ./examples/giving-renewal-summary.twbx
 
 # Output lands next to the input as <name>.model.md
 cat ./examples/giving-renewal-summary.model.md
 ```
 
-The generated `.model.md` is a single self-contained file: markdown narrative + fenced YAML blocks. Paste it into any LLM and ask questions about your dashboard, or feed it into `migrare migrate` (v0.2) to generate a React app.
+The generated `.model.md` is a single self-contained file: markdown narrative + fenced YAML blocks. Paste it into any LLM and ask questions about your dashboard, or feed it into `ingi migrate` (v0.2) to generate a React app.
 
 ---
 
@@ -117,26 +117,26 @@ The generated `.model.md` is a single self-contained file: markdown narrative + 
 
 | Command | Description |
 |---|---|
-| `migrare analyze <file>` | Parse a Tableau workbook and write a canonical metadata file (`<name>.model.md`) |
-| `migrare analyze <file> -o <path>` | Custom output path |
-| `migrare migrate <file>` | **[v0.2]** Read the metadata file and generate a Vite + React app. Stub for now — prints a friendly redirect to `analyze`. |
-| `migrare --debug` | Enable debug logging (stack traces on errors) |
-| `migrare --help` | Show all options and examples |
-| `migrare --version` | Print the migrare version |
+| `ingi analyze <file>` | Parse a Tableau workbook and write a canonical metadata file (`<name>.model.md`) |
+| `ingi analyze <file> -o <path>` | Custom output path |
+| `ingi migrate <file>` | **[v0.2]** Read the metadata file and generate a Vite + React app. Stub for now — prints a friendly redirect to `analyze`. |
+| `ingi --debug` | Enable debug logging (stack traces on errors) |
+| `ingi --help` | Show all options and examples |
+| `ingi --version` | Print the ingi version |
 
 ---
 
 ## 🗺️ Roadmap
 
-migrare is a **generic** Tableau-to-React migrator. We get there by shipping working specific cases first and letting real workbooks shape the architecture — not by designing for everything on day one.
+ingi is a **generic** Tableau-to-React migrator. We get there by shipping working specific cases first and letting real workbooks shape the architecture — not by designing for everything on day one.
 
 | Phase | Goal |
 |-------|------|
-| ✅ **v0.1 — The Metadata Wedge** *(shipped)* | `migrare analyze` → a complete, human+agent-readable metadata file (markdown + YAML) describing the workbook. No React yet. |
-| **v0.2 — React Generator + First Real Users** *(next)* | `migrare migrate` reads the metadata file → Vite + React app. 3 outside users surface real-world schema gaps. |
+| ✅ **v0.1 — The Metadata Wedge** *(shipped)* | `ingi analyze` → a complete, human+agent-readable metadata file (markdown + YAML) describing the workbook. No React yet. |
+| **v0.2 — React Generator + First Real Users** *(next)* | `ingi migrate` reads the metadata file → Vite + React app. 3 outside users surface real-world schema gaps. |
 | **v0.3 — Multi-Sheet & Layout** | Whole dashboard, not one sheet. Layout zones → responsive React grid. Read-only parameter display. |
 | **v1.0 — Production-Ready Generic** | Confident defaults across the long tail. Calculated fields, live parameters, filters, action links. Stable CLI surface. |
-| **post-v1 — Data Agents & Commercial Layer** *(conditional)* | Data-agent CLI (e.g. `migrare query`) using the metadata layer for conversational Q&A. Plus possible hosted runs / cloud deploy. CLI stays free forever. |
+| **post-v1 — Data Agents & Commercial Layer** *(conditional)* | Data-agent CLI (e.g. `ingi query`) using the metadata layer for conversational Q&A. Plus possible hosted runs / cloud deploy. CLI stays free forever. |
 
 **Anti-roadmap (explicit no):** Tableau parity, two-way sync, visual editor, multi-chart-library support before v1.0, SaaS before users.
 
@@ -145,8 +145,8 @@ migrare is a **generic** Tableau-to-React migrator. We get there by shipping wor
 ## 🛠️ Development
 
 ```bash
-git clone https://github.com/raguvindtharanitharan/migrare.git
-cd migrare
+git clone https://github.com/raguvindtharanitharan/ingi.git
+cd ingi
 npm install
 
 # Run the CLI in dev mode (TypeScript, no build step)
@@ -160,7 +160,7 @@ npm test
 
 # Link for local global testing
 npm run link
-migrare --version
+ingi --version
 ```
 
 **Tech decisions we made early**:
@@ -208,4 +208,4 @@ MIT © [Raguvind Tharanitharan](https://github.com/raguvindtharanitharan)
 
 **Made with ❤️ for teams tired of vendor lock-in.**
 
-If migrare saves your company money or helps you ship faster, star the repo and tell your friends!
+If ingi saves your company money or helps you ship faster, star the repo and tell your friends!

@@ -1,5 +1,5 @@
 /**
- * migrare — programmatic API.
+ * ingi — programmatic API.
  *
  * Re-exports the parser entry (`parseWorkbook`), the markdown
  * generator (`generateMarkdownModel`), and the typed `TableauWorkbook`

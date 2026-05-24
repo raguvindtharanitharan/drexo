@@ -9,19 +9,19 @@ import { parseWorkbook } from './parsers/index.js';
 import { generateMarkdownModel } from './generators/index.js';
 import { logger as log } from './utils/logger.js';
 
-declare const __MIGRARE_VERSION__: string;
+declare const __INGI_VERSION__: string;
 
 const program = new Command();
 
 program
-  .name('migrare')
+  .name('ingi')
   .description(
     chalk.cyan(
       'Migrate Tableau workbooks (.twb / .twbx) into modern React dashboards.\n' +
         'v0.1 ships the metadata layer; React generation lands in v0.2.'
     )
   )
-  .version(__MIGRARE_VERSION__, '-v, --version', 'output the current version')
+  .version(__INGI_VERSION__, '-v, --version', 'output the current version')
   .helpOption('-h, --help', 'display help for command')
   .option('-d, --debug', 'enable debug logging');
 
@@ -33,11 +33,11 @@ program.addHelpText(
   'after',
   `
 ${chalk.bold('Examples:')}
-  $ migrare analyze ./examples/giving-renewal-summary.twbx
-  $ migrare analyze ./report.twbx --output ./report.model.md
+  $ ingi analyze ./examples/giving-renewal-summary.twbx
+  $ ingi analyze ./report.twbx --output ./report.model.md
 
 ${chalk.bold('Learn more:')}
-  https://github.com/raguvindtharanitharan/migrare
+  https://github.com/raguvindtharanitharan/ingi
 `
 );
 
@@ -96,13 +96,13 @@ program
 program
   .command('migrate <file>')
   .description(
-    "[v0.2] Generate a React app from a workbook. Not yet implemented — try `migrare analyze` for v0.1's metadata output."
+    "[v0.2] Generate a React app from a workbook. Not yet implemented — try `ingi analyze` for v0.1's metadata output."
   )
   .action((file: string) => {
     log.warn(
-      '`migrare migrate` is a v0.2 feature. It will read the metadata file produced by `migrare analyze` and generate a Vite + React app.'
+      '`ingi migrate` is a v0.2 feature. It will read the metadata file produced by `ingi analyze` and generate a Vite + React app.'
     );
-    log.info(`For v0.1, try:    ${chalk.cyan(`migrare analyze ${file}`)}`);
+    log.info(`For v0.1, try:    ${chalk.cyan(`ingi analyze ${file}`)}`);
   });
 
 // ---------------------------------------------------------------------------
