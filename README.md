@@ -5,7 +5,7 @@
     <img alt="drexo" src="assets/drexo-logo-light.png">
   </picture>
 </p>
-<p align="center" style="margin-top: -40px">
+<p align="center" style="margin-top: -20px">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/assets/logo-word-dark.png">
     <source media="(prefers-color-scheme: light)" srcset="docs/assets/logo-word-light.png">
