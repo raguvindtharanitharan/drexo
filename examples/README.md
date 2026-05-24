@@ -1,6 +1,6 @@
 # Examples
 
-Real Tableau workbooks (`.twbx`) used to develop and test **ingi**.
+Real Tableau workbooks (`.twbx`) used to develop and test **drexo**.
 
 ## What this folder is for
 

@@ -1,16 +1,16 @@
-# Contributing to ingi
+# Contributing to drexo
 
-Thank you for your interest in contributing to ingi! 🎉
+Thank you for your interest in contributing to drexo! 🎉
 
-ingi is an open-source CLI that helps people migrate away from expensive Tableau licenses into beautiful, maintainable React dashboards.
+drexo is an open-source CLI that helps people migrate away from expensive Tableau licenses into beautiful, maintainable React dashboards.
 
 ## How to Contribute
 
 ### Reporting Bugs
 
-- Use the [GitHub Issues](https://github.com/raguvindtharanitharan/ingi/issues) page
+- Use the [GitHub Issues](https://github.com/raguvindtharanitharan/drexo/issues) page
 - Include:
-  - ingi version (`ingi --version`)
+  - drexo version (`drexo --version`)
   - Node.js version
   - Tableau version + sample .twbx (if possible and safe to share)
   - Exact command + full error output
@@ -25,8 +25,8 @@ We love ideas! Please open an issue with:
 ### Development Setup
 
 ```bash
-git clone https://github.com/raguvindtharanitharan/ingi.git
-cd ingi
+git clone https://github.com/raguvindtharanitharan/drexo.git
+cd drexo
 npm install
 npm run dev -- --help
 ```

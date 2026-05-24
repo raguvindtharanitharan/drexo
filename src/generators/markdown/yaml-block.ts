@@ -9,7 +9,7 @@
  *      explicit `null`, not omitted).
  */
 
-import { stringify } from 'yaml';
+import { strdrexofy } from 'yaml';
 
 /**
  * Recursively rewrite an object for YAML emission.
@@ -37,7 +37,7 @@ function snakeCase(key: string): string {
  * markdown document.
  */
 export function yamlBlock(value: unknown): string {
-  const yamlText = stringify(value, {
+  const yamlText = strdrexofy(value, {
     indent: 2,
     lineWidth: 0,
   });

@@ -1,11 +1,11 @@
 {
-  "name": "ingi",
+  "name": "drexo",
   "version": "0.1.0-beta.1",
   "description": "CLI tool to migrate Tableau reports into modern ReactJS dashboards",
   "type": "module",
   "main": "./dist/index.js",
   "bin": {
-    "ingi": "dist/cli.js"
+    "drexo": "dist/cli.js"
   },
   "files": [
     "dist",
@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/raguvindtharanitharan/ingi.git"
+    "url": "git+https://github.com/raguvindtharanitharan/drexo.git"
   },
   "keywords": [
     "tableau",
@@ -40,9 +40,9 @@
   "author": "Raguvind Tharanitharan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/raguvindtharanitharan/ingi/issues"
+    "url": "https://github.com/raguvindtharanitharan/drexo/issues"
   },
-  "homepage": "https://github.com/raguvindtharanitharan/ingi#readme",
+  "homepage": "https://github.com/raguvindtharanitharan/drexo#readme",
   "engines": {
     "node": ">=20.0.0"
   },

@@ -12,7 +12,7 @@ const sharedConfig = {
   dts: false,
   outDir: 'dist',
   define: {
-    __INGI_VERSION__: JSON.stringify(version),
+    __DREXO_VERSION__: JSON.stringify(version),
   },
 };
 

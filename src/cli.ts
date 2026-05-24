@@ -9,19 +9,19 @@ import { parseWorkbook } from './parsers/index.js';
 import { generateMarkdownModel } from './generators/index.js';
 import { logger as log } from './utils/logger.js';
 
-declare const __INGI_VERSION__: string;
+declare const __DREXO_VERSION__: string;
 
 const program = new Command();
 
 program
-  .name('ingi')
+  .name('drexo')
   .description(
     chalk.cyan(
       'Migrate Tableau workbooks (.twb / .twbx) into modern React dashboards.\n' +
         'v0.1 ships the metadata layer; React generation lands in v0.2.'
     )
   )
-  .version(__INGI_VERSION__, '-v, --version', 'output the current version')
+  .version(__DREXO_VERSION__, '-v, --version', 'output the current version')
   .helpOption('-h, --help', 'display help for command')
   .option('-d, --debug', 'enable debug logging');
 
@@ -33,11 +33,11 @@ program.addHelpText(
   'after',
   `
 ${chalk.bold('Examples:')}
-  $ ingi analyze ./examples/giving-renewal-summary.twbx
-  $ ingi analyze ./report.twbx --output ./report.model.md
+  $ drexo analyze ./examples/giving-renewal-summary.twbx
+  $ drexo analyze ./report.twbx --output ./report.model.md
 
 ${chalk.bold('Learn more:')}
-  https://github.com/raguvindtharanitharan/ingi
+  https://github.com/raguvindtharanitharan/drexo
 `
 );
 
@@ -96,13 +96,13 @@ program
 program
   .command('migrate <file>')
   .description(
-    "[v0.2] Generate a React app from a workbook. Not yet implemented — try `ingi analyze` for v0.1's metadata output."
+    "[v0.2] Generate a React app from a workbook. Not yet implemented — try `drexo analyze` for v0.1's metadata output."
   )
   .action((file: string) => {
     log.warn(
-      '`ingi migrate` is a v0.2 feature. It will read the metadata file produced by `ingi analyze` and generate a Vite + React app.'
+      '`drexo migrate` is a v0.2 feature. It will read the metadata file produced by `drexo analyze` and generate a Vite + React app.'
     );
-    log.info(`For v0.1, try:    ${chalk.cyan(`ingi analyze ${file}`)}`);
+    log.info(`For v0.1, try:    ${chalk.cyan(`drexo analyze ${file}`)}`);
   });
 
 // ---------------------------------------------------------------------------

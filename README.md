@@ -2,14 +2,14 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/assets/logo-dark.png">
     <source media="(prefers-color-scheme: light)" srcset="docs/assets/logo-light.png">
-    <img alt="ingi" src="assets/ingi-logo-light.png">
+    <img alt="drexo" src="assets/drexo-logo-light.png">
   </picture>
 </p>
 <p align="center" style="margin-top: -40px">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/assets/logo-word-dark.png">
     <source media="(prefers-color-scheme: light)" srcset="docs/assets/logo-word-light.png">
-    <img alt="ingi" src="assets/logo-word-light.png" width="120">
+    <img alt="drexo" src="assets/logo-word-light.png" width="120">
   </picture>
 </p>
 
@@ -20,8 +20,8 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/ingi">
-    <img src="https://img.shields.io/npm/v/ingi.svg" alt="npm version">
+  <a href="https://www.npmjs.com/package/drexo">
+    <img src="https://img.shields.io/npm/v/drexo.svg" alt="npm version">
   </a>
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
@@ -29,19 +29,19 @@
   <a href="https://nodejs.org/">
     <img src="https://img.shields.io/badge/node-%3E%3D20-brightgreen" alt="Node.js">
   </a>
-  <a href="https://github.com/RaguvindTharanitharan/ingi/issues">
+  <a href="https://github.com/RaguvindTharanitharan/drexo/issues">
     <img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg" alt="Contributions Welcome">
   </a>
 </p>
 
 ---
 
-**ingi** is an open-source Node.js CLI that turns Tableau workbooks (`.twb` / `.twbx`) into clean, AI-readable metadata files today — and runnable React dashboard apps in v0.2.
+**drexo** is an open-source Node.js CLI that turns Tableau workbooks (`.twb` / `.twbx`) into clean, AI-readable metadata files today — and runnable React dashboard apps in v0.2.
 
 Stop paying per-user Tableau licenses for internal dashboards. Own your code, own your metadata.
 
-> **v0.1 (current):** `ingi analyze` produces a canonical metadata file (markdown + YAML) describing the workbook. Human-readable, agent-readable, paste-into-ChatGPT-able.
-> **v0.2 (next):** `ingi migrate` reads that metadata and emits a Vite + React app, deployable anywhere.
+> **v0.1 (current):** `drexo analyze` produces a canonical metadata file (markdown + YAML) describing the workbook. Human-readable, agent-readable, paste-into-ChatGPT-able.
+> **v0.2 (next):** `drexo migrate` reads that metadata and emits a Vite + React app, deployable anywhere.
 
 ---
 
@@ -51,13 +51,13 @@ Stop paying per-user Tableau licenses for internal dashboards. Own your code, ow
 Tableau Workbook (.twb / .twbx)
         │
         ▼
-   ingi analyze
+   drexo analyze
         │
         ▼
   .model.md  (metadata — markdown + YAML)
         │
         ▼
-   ingi migrate  [v0.2]
+   drexo migrate  [v0.2]
         │
         ▼
    React App (Vite)
@@ -78,7 +78,7 @@ Tableau Workbook (.twb / .twbx)
 - **Flexible Data** — Static JSON, API adapters, or live connections
 - **Great Developer Experience** — TypeScript, modern tooling, easy to customize generated code
 
-> **Current status**: v0.1 metadata pipeline ships. `ingi analyze` runs end-to-end on real workbooks. React generation lands in v0.2. Contributions welcome!
+> **Current status**: v0.1 metadata pipeline ships. `drexo analyze` runs end-to-end on real workbooks. React generation lands in v0.2. Contributions welcome!
 
 ---
 
@@ -93,23 +93,23 @@ Tableau Workbook (.twb / .twbx)
 
 ```bash
 # Run instantly with npx (recommended while in development)
-npx ingi@latest --help
+npx drexo@latest --help
 
 # Or install globally
-npm install -g ingi
+npm install -g drexo
 ```
 
 ### Basic Usage
 
 ```bash
 # Generate the metadata file for a workbook
-ingi analyze ./examples/giving-renewal-summary.twbx
+drexo analyze ./examples/giving-renewal-summary.twbx
 
 # Output lands next to the input as <name>.model.md
 cat ./examples/giving-renewal-summary.model.md
 ```
 
-The generated `.model.md` is a single self-contained file: markdown narrative + fenced YAML blocks. Paste it into any LLM and ask questions about your dashboard, or feed it into `ingi migrate` (v0.2) to generate a React app.
+The generated `.model.md` is a single self-contained file: markdown narrative + fenced YAML blocks. Paste it into any LLM and ask questions about your dashboard, or feed it into `drexo migrate` (v0.2) to generate a React app.
 
 ---
 
@@ -117,26 +117,26 @@ The generated `.model.md` is a single self-contained file: markdown narrative + 
 
 | Command | Description |
 |---|---|
-| `ingi analyze <file>` | Parse a Tableau workbook and write a canonical metadata file (`<name>.model.md`) |
-| `ingi analyze <file> -o <path>` | Custom output path |
-| `ingi migrate <file>` | **[v0.2]** Read the metadata file and generate a Vite + React app. Stub for now — prints a friendly redirect to `analyze`. |
-| `ingi --debug` | Enable debug logging (stack traces on errors) |
-| `ingi --help` | Show all options and examples |
-| `ingi --version` | Print the ingi version |
+| `drexo analyze <file>` | Parse a Tableau workbook and write a canonical metadata file (`<name>.model.md`) |
+| `drexo analyze <file> -o <path>` | Custom output path |
+| `drexo migrate <file>` | **[v0.2]** Read the metadata file and generate a Vite + React app. Stub for now — prints a friendly redirect to `analyze`. |
+| `drexo --debug` | Enable debug logging (stack traces on errors) |
+| `drexo --help` | Show all options and examples |
+| `drexo --version` | Print the drexo version |
 
 ---
 
 ## 🗺️ Roadmap
 
-ingi is a **generic** Tableau-to-React migrator. We get there by shipping working specific cases first and letting real workbooks shape the architecture — not by designing for everything on day one.
+drexo is a **generic** Tableau-to-React migrator. We get there by shipping working specific cases first and letting real workbooks shape the architecture — not by designing for everything on day one.
 
 | Phase | Goal |
 |-------|------|
-| ✅ **v0.1 — The Metadata Wedge** *(shipped)* | `ingi analyze` → a complete, human+agent-readable metadata file (markdown + YAML) describing the workbook. No React yet. |
-| **v0.2 — React Generator + First Real Users** *(next)* | `ingi migrate` reads the metadata file → Vite + React app. 3 outside users surface real-world schema gaps. |
+| ✅ **v0.1 — The Metadata Wedge** *(shipped)* | `drexo analyze` → a complete, human+agent-readable metadata file (markdown + YAML) describing the workbook. No React yet. |
+| **v0.2 — React Generator + First Real Users** *(next)* | `drexo migrate` reads the metadata file → Vite + React app. 3 outside users surface real-world schema gaps. |
 | **v0.3 — Multi-Sheet & Layout** | Whole dashboard, not one sheet. Layout zones → responsive React grid. Read-only parameter display. |
 | **v1.0 — Production-Ready Generic** | Confident defaults across the long tail. Calculated fields, live parameters, filters, action links. Stable CLI surface. |
-| **post-v1 — Data Agents & Commercial Layer** *(conditional)* | Data-agent CLI (e.g. `ingi query`) using the metadata layer for conversational Q&A. Plus possible hosted runs / cloud deploy. CLI stays free forever. |
+| **post-v1 — Data Agents & Commercial Layer** *(conditional)* | Data-agent CLI (e.g. `drexo query`) using the metadata layer for conversational Q&A. Plus possible hosted runs / cloud deploy. CLI stays free forever. |
 
 **Anti-roadmap (explicit no):** Tableau parity, two-way sync, visual editor, multi-chart-library support before v1.0, SaaS before users.
 
@@ -145,8 +145,8 @@ ingi is a **generic** Tableau-to-React migrator. We get there by shipping workin
 ## 🛠️ Development
 
 ```bash
-git clone https://github.com/raguvindtharanitharan/ingi.git
-cd ingi
+git clone https://github.com/raguvindtharanitharan/drexo.git
+cd drexo
 npm install
 
 # Run the CLI in dev mode (TypeScript, no build step)
@@ -160,7 +160,7 @@ npm test
 
 # Link for local global testing
 npm run link
-ingi --version
+drexo --version
 ```
 
 **Tech decisions we made early**:
@@ -208,4 +208,4 @@ MIT © [Raguvind Tharanitharan](https://github.com/raguvindtharanitharan)
 
 **Made with ❤️ for teams tired of vendor lock-in.**
 
-If ingi saves your company money or helps you ship faster, star the repo and tell your friends!
+If drexo saves your company money or helps you ship faster, star the repo and tell your friends!
