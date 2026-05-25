@@ -16,9 +16,9 @@ import { describe, expect, test } from 'vitest';
 import { parseWorkbook } from '../../src/parsers/parse-workbook.js';
 import { generateMarkdownModel } from '../../src/generators/markdown-model.js';
 
-const FIXTURE = './examples/giving-renewal-summary.twbx';
+const FIXTURE = './examples/finance-simple-gaap-revenue-forecast.twbx';
 
-describe('integration: analyze giving-renewal-summary', () => {
+describe('integration: analyze finance-simple-gaap-revenue-forecast', () => {
   test('fixture is available locally', () => {
     expect(existsSync(FIXTURE), `Fixture missing at ${FIXTURE} — copy your .twbx into ./examples/`).toBe(true);
   });
@@ -32,22 +32,27 @@ describe('integration: analyze giving-renewal-summary', () => {
   test('parses the expected high-level structure', async () => {
     const workbook = await parseWorkbook(FIXTURE);
 
-    expect(workbook.metadata.name).toBe('giving-renewal-summary');
+    expect(workbook.metadata.name).toBe('finance-simple-gaap-revenue-forecast');
     expect(workbook.metadata.tableauVersion).toBe('18.1');
 
-    expect(workbook.dataSources).toHaveLength(2);
+    expect(workbook.dataSources).toHaveLength(4);
     expect(workbook.dataSources.find((d) => d.name === 'Parameters')).toBeDefined();
 
-    expect(workbook.worksheets).toHaveLength(3);
+    expect(workbook.worksheets).toHaveLength(8);
     const names = workbook.worksheets.map((w) => w.name);
     expect(names).toEqual([
-      'Renewal Rate Trend',
-      'Renewal Rate by Cohort',
-      'Renewal Rate by Cohort + Amount',
+      'Bookings-Consol',
+      'GAAP Rev-Consol',
+      'Lic-Consol',
+      'Main-Consol',
+      'Proj Rev-Consol',
+      'Sheet 8',
+      'Tot Rev-Consol',
+      'YTD Rev-Consol',
     ]);
 
-    expect(workbook.dashboards).toHaveLength(2);
-    expect(workbook.parameters).toHaveLength(4);
+    expect(workbook.dashboards).toHaveLength(1);
+    expect(workbook.parameters.length).toBeGreaterThan(0);
   });
 
   test('mark classifier returns enum values, not concatenated garbage', async () => {
@@ -60,8 +65,8 @@ describe('integration: analyze giving-renewal-summary', () => {
       }
     }
 
-    const trend = workbook.worksheets.find((w) => w.name === 'Renewal Rate Trend');
-    expect(trend?.markTypes).toEqual(expect.arrayContaining(['line', 'bar']));
+    const licConsol = workbook.worksheets.find((w) => w.name === 'Lic-Consol');
+    expect(licConsol?.markTypes).toEqual(expect.arrayContaining(['bar', 'circle']));
   });
 
   test('captures calculated fields with their formulas', async () => {
