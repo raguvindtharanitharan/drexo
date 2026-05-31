@@ -1,15 +1,15 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/logo-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="docs/assets/logo-light.png">
-    <img alt="drexo" src="assets/drexo-logo-light.png">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/raguvindtharanitharan/drexo/main/docs/assets/logo-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/raguvindtharanitharan/drexo/main/docs/assets/logo-light.png">
+    <img alt="drexo" src="https://raw.githubusercontent.com/raguvindtharanitharan/drexo/main/docs/assets/logo-light.png">
   </picture>
 </p>
 <p align="center" style="margin-top: -20px">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/logo-word-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="docs/assets/logo-word-light.png">
-    <img alt="drexo" src="assets/logo-word-light.png" width="120">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/raguvindtharanitharan/drexo/main/docs/assets/logo-word-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/raguvindtharanitharan/drexo/main/docs/assets/logo-word-light.png">
+    <img alt="drexo" src="https://raw.githubusercontent.com/raguvindtharanitharan/drexo/main/docs/assets/logo-word-light.png" width="120">
   </picture>
 </p>
 

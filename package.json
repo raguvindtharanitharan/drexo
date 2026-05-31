@@ -1,6 +1,6 @@
 {
   "name": "drexo",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "The bridge from BI to AI — turn Tableau workbooks into structured, AI-ready metadata",
   "type": "module",
   "main": "./dist/index.js",

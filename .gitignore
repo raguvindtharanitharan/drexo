@@ -43,6 +43,9 @@ migrated-*/
 output-*/
 *.twbx
 
+# Generated analysis reports (drexo analyze --output-dir)
+examples/reports/
+
 # Local AI agent / Grok session data (optional - keep plans in docs/plans/ instead)
 .grok-local/
 docs/plans/sessions/
