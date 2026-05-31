@@ -10,7 +10,7 @@ import { generateMarkdownModel } from './generators/index.js';
 import { generateVisualBlueprint } from './generators/visual-blueprint.js';
 import { generateLayoutHtml } from './generators/layout-html.js';
 import { scaffoldStaticFiles } from './generators/react/scaffolder.js';
-import { generateDashboardComponent } from './generators/react/dashboard-component.js';
+import { generateDashboardComponent, type DashboardGeneratorResult } from './generators/react/dashboard-component.js';
 import { generateAppTsx, generateWorkbookListTsx } from './generators/react/app-shell.js';
 import { generateReportIndex, toSubdirName, type IndexEntry } from './generators/report-index.js';
 import { enrichWorkbook, type EnrichStep } from './enrichers/index.js';
@@ -344,12 +344,17 @@ program
       for (const { workbook, slug } of workbooks) {
         const dashDir = path.join(outputDir, 'src', 'workbooks', slug);
         await mkdir(dashDir, { recursive: true });
-        const dashContent = generateDashboardComponent(workbook);
-        await writeFile(path.join(dashDir, 'Dashboard.tsx'), dashContent, 'utf-8');
+        const { dashboardTsx, dataFiles } = generateDashboardComponent(workbook, slug);
+        await writeFile(path.join(dashDir, 'Dashboard.tsx'), dashboardTsx, 'utf-8');
+        for (const df of dataFiles) {
+          const dest = path.join(outputDir, df.relativePath);
+          await mkdir(path.dirname(dest), { recursive: true });
+          await writeFile(dest, df.content, 'utf-8');
+        }
         const previewHtml = generateLayoutHtml(workbook);
         await writeFile(path.join(dashDir, 'layout-preview.html'), previewHtml, 'utf-8');
         entries.push({ workbook, slug });
-        log.success(`  ${chalk.cyan(`src/workbooks/${slug}/Dashboard.tsx`)}`);
+        log.success(`  ${chalk.cyan(`src/workbooks/${slug}/Dashboard.tsx`)} (${dataFiles.length} data file${dataFiles.length === 1 ? '' : 's'})`);
         log.success(`  ${chalk.cyan(`src/workbooks/${slug}/layout-preview.html`)}`);
       }
 

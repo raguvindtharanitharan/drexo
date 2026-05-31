@@ -41,6 +41,11 @@ function mapEncoding(ws: any, lookup: FieldLookup): VisualEncoding {
   const columns = dedupe(extractShelf(ws, 'cols', lookup));
   const effectiveMarkType = resolveEffectiveMarkType(markType, rows, columns);
 
+  // Always extract which measures are instantiated in the view.
+  // For Measure Names tables: driven by groupfilter (display order preserved).
+  // For pivot/standard tables: driven by column-instances (ground truth).
+  const selectedMeasures = extractSelectedMeasures(ws, lookup);
+
   const encodings = collectEncodingNodes(ws);
   const color = dedupe(encodingsForAttr(encodings, 'color', lookup));
   const size = dedupe(encodingsForAttr(encodings, 'size', lookup));
@@ -54,9 +59,10 @@ function mapEncoding(ws: any, lookup: FieldLookup): VisualEncoding {
     title,
     markType,
     effectiveMarkType,
-    isDualAxis: false, // v0.2+
+    isDualAxis: false,
     rows,
     columns,
+    selectedMeasures,
     color: toEncodingValue(color),
     size: toEncodingValue(size),
     shape: toEncodingValue(shape),
@@ -67,6 +73,95 @@ function mapEncoding(ws: any, lookup: FieldLookup): VisualEncoding {
     referenceLines: [],
     tableCalculations: [],
   };
+}
+
+// ---------------------------------------------------------------------------
+// Measure Names filter — extract which measures Tableau selected to display
+// ---------------------------------------------------------------------------
+
+function extractSelectedMeasures(ws: any, lookup: FieldLookup): string[] {
+  const view = ws?.table?.view;
+  if (!view) return [];
+
+  // Primary: groupfilter preserves Tableau's exact display order.
+  const fromFilter = extractMeasuresFromGroupFilter(view, lookup);
+  if (fromFilter.length > 0) return fromFilter;
+
+  // Fallback: column-instances — works even when no explicit filter is set.
+  return extractMeasuresFromColumnInstances(view, lookup);
+}
+
+function extractMeasuresFromColumnInstances(view: any, lookup: FieldLookup): string[] {
+  const resolved: string[] = [];
+  const deps = toArray(view['datasource-dependencies'] ?? []);
+
+  for (const dep of deps) {
+    const instances = toArray(dep['column-instance'] ?? []);
+    for (const inst of instances) {
+      const colRef = String(inst['@_name'] ?? '').replace(/^\[|\]$/g, '');
+      if (!colRef) continue;
+
+      // Only measure aggregations — skip dimension instances (none:, attr: for dims, etc.)
+      if (/^(none|trunc|datepart|datetrunc):/i.test(colRef)) continue;
+
+      // pcto: = percent of total — emit as "% of <BaseName>"
+      if (/^pcto:/i.test(colRef)) {
+        const baseRef = colRef.replace(/^pcto:/i, '').replace(/:qk(:\d+)?$/, '').replace(/^sum:/, '');
+        const baseCaption = resolveFieldName(baseRef, lookup)?.caption;
+        if (baseCaption) {
+          const label = `% of ${baseCaption}`;
+          if (!resolved.includes(label)) resolved.push(label);
+        }
+        continue;
+      }
+
+      // Skip pure table calcs that require window functions
+      if (/^(running_sum|lookup|window|rank|size|index|first|last|previous_value):/i.test(colRef)) continue;
+
+      // Must start with a known measure aggregation
+      if (!/^(sum|avg|min|max|cnt|count|median|stdev|var|attr):/i.test(colRef)) continue;
+
+      const caption = resolveFieldName(colRef, lookup)?.caption;
+      if (caption && !resolved.includes(caption)) resolved.push(caption);
+    }
+  }
+
+  return resolved;
+}
+
+function extractMeasuresFromGroupFilter(view: any, lookup: FieldLookup): string[] {
+  const filters = toArray(view.filter ?? []);
+  const mnFilter = filters.find(
+    (f: any) => typeof f['@_column'] === 'string' && f['@_column'].includes('Measure Names')
+  );
+  if (!mnFilter?.groupfilter) return [];
+
+  const innerGf = mnFilter.groupfilter.groupfilter ?? mnFilter.groupfilter;
+  const resolved: string[] = [];
+
+  for (const m of toArray(innerGf)) {
+    if (m['@_function'] !== 'member' || !m['@_member']) continue;
+    const raw = String(m['@_member']).replace(/^"|"$/g, '');
+    const match = raw.match(/\.\[([^\]]+)\]$/);
+    const fieldRef = match ? match[1] : raw.replace(/^\[|\]$/g, '');
+
+    if (/^pcto:/i.test(fieldRef)) {
+      const baseRef = fieldRef.replace(/^pcto:/i, '').replace(/:qk(:\d+)?$/, '').replace(/^sum:/, '');
+      const baseCaption = resolveFieldName(baseRef, lookup)?.caption;
+      if (baseCaption) {
+        const label = `% of ${baseCaption}`;
+        if (!resolved.includes(label)) resolved.push(label);
+      }
+      continue;
+    }
+
+    if (/^(running_sum|lookup|window|rank|size|index|first|last|previous_value):/i.test(fieldRef)) continue;
+
+    const caption = resolveFieldName(fieldRef, lookup)?.caption;
+    if (caption && !resolved.includes(caption)) resolved.push(caption);
+  }
+
+  return resolved;
 }
 
 function toEncodingValue(refs: FieldRef[]): FieldRef | FieldRef[] | null {

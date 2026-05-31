@@ -1,3 +1,5 @@
+import { dataTableComponentSource } from './table-generator.js';
+
 export interface ScaffoldFile {
   relativePath: string;
   content: string;
@@ -5,11 +7,12 @@ export interface ScaffoldFile {
 
 export function scaffoldStaticFiles(appTitle: string): ScaffoldFile[] {
   return [
-    { relativePath: 'package.json',     content: packageJson(appTitle) },
-    { relativePath: 'vite.config.ts',   content: viteConfig() },
-    { relativePath: 'tsconfig.json',    content: tsConfig() },
-    { relativePath: 'index.html',       content: indexHtml(appTitle) },
-    { relativePath: 'src/main.tsx',     content: mainTsx() },
+    { relativePath: 'package.json',                    content: packageJson(appTitle) },
+    { relativePath: 'vite.config.ts',                  content: viteConfig() },
+    { relativePath: 'tsconfig.json',                   content: tsConfig() },
+    { relativePath: 'index.html',                      content: indexHtml(appTitle) },
+    { relativePath: 'src/main.tsx',                    content: mainTsx() },
+    { relativePath: 'src/components/DataTable.tsx',    content: dataTableComponentSource() },
   ];
 }
 

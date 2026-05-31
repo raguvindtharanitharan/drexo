@@ -80,10 +80,16 @@ export function renderVisualEncodings(encodings: VisualEncoding[]): string {
     encodings.length > 0
       ? encodings.map(encodingSummaryLine).join('\n') + '\n\n'
       : '';
+  // Omit selectedMeasures when empty to keep YAML clean
+  const encodingsForYaml = encodings.map((enc) =>
+    enc.selectedMeasures.length === 0
+      ? (({ selectedMeasures, ...rest }) => rest)(enc)
+      : enc
+  );
   return section(
     'Visual Encodings',
     'How each worksheet maps fields onto its mark and shelves. The richest section in the model — drives code generation in v0.2.',
-    summary + yamlBlock({ visual_encodings: toYamlReady(encodings) })
+    summary + yamlBlock({ visual_encodings: toYamlReady(encodingsForYaml) })
   );
 }
 

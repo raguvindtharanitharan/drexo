@@ -142,6 +142,10 @@ export interface VisualEncoding {
   isDualAxis: boolean;
   rows: FieldRef[];
   columns: FieldRef[];
+  // When Measure Names is on the columns shelf, Tableau applies a categorical
+  // filter to select which specific measures to display. This field captures
+  // those resolved captions in display order. Empty = all measures shown.
+  selectedMeasures: string[];
   color: FieldRef | FieldRef[] | null;
   size: FieldRef | FieldRef[] | null;
   shape: FieldRef | FieldRef[] | null;
