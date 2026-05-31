@@ -202,6 +202,11 @@ export interface Zone {
   h: number;
   isFixed: boolean;
   children: Zone[];
+  // Display metadata — populated for paramctrl and titled zones
+  displayLabel?: string;  // from formatted-text inside the zone (the visible title)
+  controlMode?: string;   // paramctrl mode: 'slider' | 'compact' | 'radio' | 'dropdown'
+  paramRef?: string;      // paramctrl parameter reference e.g. '[Parameters].[Revenue View]'
+  showTitle?: boolean;    // whether the zone title is visible
 }
 
 export interface Dashboard {
@@ -233,6 +238,7 @@ export interface Parameter {
   dataType?: FieldDataType;
   currentValue?: string;
   allowableValues: string[];
+  controlType?: string; // 'slider' | 'dropdown' | 'text-input' — from param-domain-type
 }
 
 export type ActionType = 'filter' | 'highlight' | 'url';

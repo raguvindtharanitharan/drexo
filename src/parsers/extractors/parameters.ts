@@ -26,6 +26,9 @@ function mapParameter(col: any): Parameter {
   const dataType = col['@_datatype'] as FieldDataType | undefined;
   const currentValue: string | undefined = col['@_value'];
 
+  // param-domain-type: 'range' = slider, 'list' = dropdown/list, 'all' = free input
+  const domainType: string | undefined = col['@_param-domain-type'];
+
   const membersRaw = col?.members?.member;
   const allowableValues = membersRaw
     ? toArray(membersRaw)
@@ -38,5 +41,16 @@ function mapParameter(col: any): Parameter {
     dataType,
     currentValue,
     allowableValues,
+    controlType: normalizeParamDomainType(domainType),
   };
+}
+
+function normalizeParamDomainType(domainType: string | undefined): string | undefined {
+  if (!domainType) return undefined;
+  const map: Record<string, string> = {
+    range: 'slider',
+    list:  'dropdown',
+    all:   'text-input',
+  };
+  return map[domainType] ?? domainType;
 }

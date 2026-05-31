@@ -8,6 +8,7 @@ import { Command } from 'commander';
 import { parseWorkbook } from './parsers/index.js';
 import { generateMarkdownModel } from './generators/index.js';
 import { generateVisualBlueprint } from './generators/visual-blueprint.js';
+import { generateLayoutHtml } from './generators/layout-html.js';
 import { generateReportIndex, toSubdirName, type IndexEntry } from './generators/report-index.js';
 import { enrichWorkbook, type EnrichStep } from './enrichers/index.js';
 import { logger as log } from './utils/logger.js';
@@ -291,17 +292,58 @@ async function runConcurrently<T>(
 }
 
 // ---------------------------------------------------------------------------
-// migrate (v0.2 stub)
+// migrate
 // ---------------------------------------------------------------------------
 
 program
   .command('migrate <file>')
-  .description(
-    "[v0.2] Generate a React app from a workbook. Not yet implemented — try `drexo analyze` for v0.1's metadata output."
-  )
-  .action((file: string) => {
-    log.warn('`drexo migrate` is a v0.2 feature.');
-    log.info(`For v0.1, try:    ${chalk.cyan(`drexo analyze ${file}`)}`);
+  .description('Generate a React app from a Tableau workbook. Runs analyze first if metadata files are missing.')
+  .option('--output-dir <path>', 'output directory (default: ./<workbook-name>-app)')
+  .option('--enrich', 'enrich metadata with AI before migrating (requires ANTHROPIC_API_KEY)')
+  .action(async (file: string, options: { outputDir?: string; enrich?: boolean }) => {
+    const start = performance.now();
+    try {
+      if (!existsSync(file)) {
+        log.error(`File not found: ${file}`);
+        process.exit(1);
+      }
+
+      // Resolve output directory
+      const parsed = path.parse(file);
+      const outputDir = options.outputDir ?? path.join(parsed.dir, `${parsed.name}-app`);
+      await mkdir(outputDir, { recursive: true });
+
+      // Check if md files exist — if not, run analyze first
+      const modelPath = path.join(parsed.dir, `${parsed.name}.model.md`);
+      const visualPath = path.join(parsed.dir, `${parsed.name}.visual.md`);
+      const mdsMissing = !existsSync(modelPath) || !existsSync(visualPath);
+
+      if (mdsMissing) {
+        log.info(`↳ Metadata files not found — running analyze first...`);
+        await analyzeOne(file, { enrich: options.enrich ?? false });
+        log.info('');
+      }
+
+      // Parse workbook for generation
+      log.info(`⚛  Generating app from ${chalk.bold(path.basename(file))}`);
+      const workbook = await parseWorkbook(file);
+
+      // Step 1: Layout HTML
+      const layoutHtml = generateLayoutHtml(workbook);
+      const layoutPath = path.join(outputDir, 'index.html');
+      await writeFile(layoutPath, layoutHtml, 'utf-8');
+
+      const elapsed = ((performance.now() - start) / 1000).toFixed(2);
+      log.success(`Wrote ${chalk.cyan(layoutPath)} in ${elapsed}s`);
+      log.info(`  Open in browser: ${chalk.cyan(`file://${path.resolve(layoutPath)}`)}`);
+    } catch (e) {
+      const reason = e instanceof Error ? e.message : String(e);
+      log.error(`Migration failed: ${reason}`);
+      if (process.env.DEBUG && e instanceof Error && e.stack) {
+        console.error(chalk.gray(e.stack));
+      }
+      process.exit(1);
+    }
   });
 
 // ---------------------------------------------------------------------------

@@ -58,6 +58,17 @@ function mapZone(zone: any): Zone {
 
   const children = zone.zone ? toArray(zone.zone).map((z: any) => mapZone(z)) : [];
 
+  // Extract the human-readable label from formatted-text (the visible title shown in the dashboard)
+  const displayLabel = extractZoneLabel(zone);
+
+  // Extract paramctrl-specific fields
+  const controlMode = normalizeControlMode(zone['@_mode']);
+  const paramRef = zone['@_param']
+    ? String(zone['@_param']).replace(/^\[Parameters\]\.\[|\]$/g, '').replace(/\[|\]/g, '')
+    : undefined;
+
+  const showTitle = zone['@_show-title'] !== 'false';
+
   return {
     id: String(zone['@_id'] ?? ''),
     name,
@@ -69,7 +80,37 @@ function mapZone(zone: any): Zone {
     h: parseFloat(zone['@_h'] ?? '0'),
     isFixed: zone['@_is-fixed'] === 'true',
     children,
+    displayLabel: displayLabel || undefined,
+    controlMode,
+    paramRef,
+    showTitle,
   };
+}
+
+function extractZoneLabel(zone: any): string {
+  const ft = zone['formatted-text'];
+  if (!ft) return '';
+  const runs = toArray(ft.run ?? []);
+  return runs
+    .map((r: any) => (typeof r === 'string' ? r : (r['#text'] ?? '')))
+    .filter((t: string) => t.trim().length > 0 && !t.includes('Æ') && !t.includes('&#10;'))
+    .join(' ')
+    .trim();
+}
+
+function normalizeControlMode(mode: string | undefined): string | undefined {
+  if (!mode) return undefined;
+  const map: Record<string, string> = {
+    compact:        'dropdown',
+    dropdown:       'dropdown',
+    slider:         'slider',
+    radio:          'radio',
+    'multiple-values': 'multi-select',
+    'single-value': 'dropdown',
+    checkbox:       'checkbox',
+    list:           'list',
+  };
+  return map[mode] ?? mode;
 }
 
 function normalizeZoneType(raw: string | undefined): ZoneType {
