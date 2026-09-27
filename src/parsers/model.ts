@@ -245,6 +245,10 @@ export interface Filter {
 
 export interface Parameter {
   name: string;
+  /** Internal Tableau column name (e.g. "[Custom Pipeline Weighting (copy)]") —
+   * the form calculation formulas use to reference the parameter. Often differs
+   * from the caption-based `name`. */
+  internalName?: string;
   dataType?: FieldDataType;
   currentValue?: string;
   allowableValues: string[];

@@ -22,7 +22,8 @@ export function extractParameters(workbook: any): Parameter[] {
 }
 
 function mapParameter(col: any): Parameter {
-  const name: string = col['@_caption'] ?? col['@_name'] ?? '';
+  const internalName: string | undefined = col['@_name'];
+  const name: string = col['@_caption'] ?? internalName ?? '';
   const dataType = col['@_datatype'] as FieldDataType | undefined;
   const currentValue: string | undefined = col['@_value'];
 
@@ -38,6 +39,7 @@ function mapParameter(col: any): Parameter {
 
   return {
     name,
+    internalName,
     dataType,
     currentValue,
     allowableValues,

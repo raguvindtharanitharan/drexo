@@ -1,4 +1,4 @@
-import type { TableauWorkbook } from '../../parsers/model.js';
+import type { FieldDataType, TableauWorkbook } from '../../parsers/model.js';
 import type { ParquetTable } from '../../extractors/hyper-extractor.js';
 
 export interface DimSpec {
@@ -262,6 +262,13 @@ function translateFormula(formula: string, workbook: TableauWorkbook, aggContext
     .replace(/&#13;/g, ' ').replace(/&#10;/g, ' ')
     .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 
+  // Resolve Tableau parameter references to their current value as a literal
+  // BEFORE literal/ref handling. This turns parameter-driven IF/ELSE branches
+  // into constant comparisons that DuckDB can fold, keeping only the matching
+  // branch — so a measure like "IF [Parameters].[Revenue View] = ... THEN ..."
+  // executes its real (e.g. weighted) calculation instead of being dropped.
+  f = substituteParameters(f, workbook);
+
   // Convert Tableau string literals "..." to SQL single-quoted strings.
   // In Tableau formulas, double quotes are string delimiters (not column refs).
   // Column refs use [brackets]. Do this BEFORE field ref substitution.
@@ -302,6 +309,42 @@ function translateFormula(formula: string, workbook: TableauWorkbook, aggContext
   }
 
   return f.replace(/\s+/g, ' ').trim();
+}
+
+/**
+ * Replace every `[Parameters].[<ref>]` in a formula with the referenced
+ * parameter's current (default) value as a literal.
+ *
+ * Generic across all workbooks — nothing here is workbook-specific. Each ref is
+ * resolved against `workbook.parameters` by internal name (the form formulas
+ * actually use, e.g. "[Custom Pipeline Weighting (copy)]") with caption as a
+ * fallback. The parameter's `currentValue` already carries Tableau's literal
+ * delimiters (double-quoted strings, bare numbers, `#date#`); we normalise date
+ * literals to SQL and leave the rest for the downstream "..."→'...' pass.
+ *
+ * Unresolved refs are left untouched so `isUntranslatable()` still routes the
+ * measure to the safe raw-numeric fallback rather than emitting broken SQL.
+ */
+function substituteParameters(formula: string, workbook: TableauWorkbook): string {
+  if (!workbook.parameters?.length) return formula;
+  return formula.replace(/\[Parameters\]\.\[([^\]]+)\]/g, (match, ref: string) => {
+    const param = workbook.parameters.find(
+      (p) => p.internalName?.replace(/^\[|\]$/g, '') === ref || p.name === ref,
+    );
+    if (!param || param.currentValue === undefined) return match;
+    return paramLiteral(param.currentValue, param.dataType);
+  });
+}
+
+/** Render a parameter's stored value as a DuckDB-ready literal. */
+function paramLiteral(value: string, dataType?: FieldDataType): string {
+  // Tableau date/datetime literals are wrapped in #...#
+  const dateMatch = value.match(/^#(.+)#$/);
+  if (dateMatch) {
+    return dataType === 'datetime' ? `TIMESTAMP '${dateMatch[1]}'` : `DATE '${dateMatch[1]}'`;
+  }
+  // Strings already arrive double-quoted (normalised later); numbers/booleans bare.
+  return value;
 }
 
 // ─── Generic server template ──────────────────────────────────────────────────
