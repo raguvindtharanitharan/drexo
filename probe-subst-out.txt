@@ -1,0 +1,50 @@
+=== Parameters (first 10, with internalName) ===
+{"name":"Quota Unamplified","internalName":"[Amplified Quota (copy)]","dataType":"integer","currentValue":"234000000"}
+{"name":"_Include/Exclude Bundled Perpetual in Ratable Calc","internalName":"[Bookings Type (Amplified vs. Unamplified) (copy) 1]","dataType":"string","currentValue":"\"Include Bundled Perpetual in Ratable Calc\""}
+{"name":"Competitive Basis (# vs $)","internalName":"[Bookings Type (Amplified vs. Unamplified) (copy)]","dataType":"string","currentValue":"\"Transactions\""}
+{"name":"Core Multiple - Enterprise (Post-Mar17)","internalName":"[Core Multiple (Post-Feb17) (copy 2) (copy)]","dataType":"real","currentValue":"1.8600000000000001"}
+{"name":"Core Multiple - Commercial (Post-Mar17)","internalName":"[Core Multiple (Post-Feb17) (copy 2)]","dataType":"real","currentValue":"2.0699999999999998"}
+{"name":"Core Multiple (Pre-Feb17)","internalName":"[Core Multiple (Post-Feb17) (copy)]","dataType":"real","currentValue":"2.0"}
+{"name":"Revenue View","internalName":"[Custom Pipeline Weighting (copy)]","dataType":"string","currentValue":"\"Custom Pipeline Weighted\""}
+{"name":"Last Day of Current Month","internalName":"[Date Closed Parameter]","dataType":"date","currentValue":"#2018-03-31#"}
+{"name":"Quota Amplified","internalName":"[Date Range (copy 2)]","dataType":"integer","currentValue":"250000000"}
+{"name":"Bookings Type","internalName":"[Date Range (copy)]","dataType":"string","currentValue":"\"Unamplified Bookings\""}
+
+=== The Revenue View parameter ===
+{
+  "name": "Revenue View",
+  "internalName": "[Custom Pipeline Weighting (copy)]",
+  "dataType": "string",
+  "currentValue": "\"Custom Pipeline Weighted\"",
+  "allowableValues": [
+    "\"Actual Bookings\"",
+    "\"Standard Pipeline Weighted\"",
+    "\"Custom Pipeline Weighted\""
+  ],
+  "controlType": "dropdown"
+}
+
+=== Sample formulas referencing Parameters ===
+TOTAL formulas referencing Parameters: 18
+
+=== Substitution test on first 5 param-referencing formulas ===
+--- [Adjusted Tot Proj Current Period Revenue] ---
+BEFORE: IF [Parameters].[Custom Pipeline Weighting (copy)]="Actual Bookings"  THEN [Tot Proj Current Period Revenue (Incl Pipeline) (copy)]  ELSE  IF [Parameters].[Custom Pipeline Weighting (copy)]="Standard Pipeline Weighted"  THEN [Calculation_4191120164040496]  ELS
+AFTER:  IF "Custom Pipeline Weighted"="Actual Bookings"  THEN [Tot Proj Current Period Revenue (Incl Pipeline) (copy)]  ELSE  IF "Custom Pipeline Weighted"="Standard Pipeline Weighted"  THEN [Calculation_4191120164040496]  ELSE  IF "Custom Pipeline Weighted"="Custom P
+stillHasParameters=false  stillHasFederated=false
+--- [Bookings Stage Adjustment (Custom)] ---
+BEFORE: IF [Opportunity Stage]="Closed Won"  THEN 1  ELSE  IF [Opportunity Stage]="Commit"  THEN [Parameters].[Parameter 2 2]  ELSE  IF [Opportunity Stage]="Select - Pending Delivery"  THEN [Parameters].[Parameter 2 2]  ELSE  IF [Opportunity Stage]="Select"  THEN [Par
+AFTER:  IF [Opportunity Stage]="Closed Won"  THEN 1  ELSE  IF [Opportunity Stage]="Commit"  THEN 0.40000000000000002  ELSE  IF [Opportunity Stage]="Select - Pending Delivery"  THEN 0.40000000000000002  ELSE  IF [Opportunity Stage]="Select"  THEN 0.40000000000000002  E
+stillHasParameters=false  stillHasFederated=false
+--- [Current Period End Date] ---
+BEFORE: DATEADD('day',-1,DATEADD('month',3,DATETRUNC('quarter',[Parameters].[Date Closed Parameter])))
+AFTER:  DATEADD('day',-1,DATEADD('month',3,DATETRUNC('quarter',#2018-03-31#)))
+stillHasParameters=false  stillHasFederated=false
+--- [Adjustable Bookings] ---
+BEFORE: IF [Parameters].[Custom Pipeline Weighting (copy)]="Actual Bookings"  THEN [Calculation_0120424090323953]  ELSE  IF [Parameters].[Custom Pipeline Weighting (copy)]="Standard Pipeline Weighted"  THEN [Calculation_3170329165527412]  ELSE  IF [Parameters].[Custom
+AFTER:  IF "Custom Pipeline Weighted"="Actual Bookings"  THEN [Calculation_0120424090323953]  ELSE  IF "Custom Pipeline Weighted"="Standard Pipeline Weighted"  THEN [Calculation_3170329165527412]  ELSE  IF "Custom Pipeline Weighted"="Custom Pipeline Weighted"  THEN [P
+stillHasParameters=false  stillHasFederated=false
+--- [Current vs Prior Month Booking] ---
+BEFORE: IF DATEPART('month',[Date Closed])<>datepart('month',[Parameters].[Date Closed Parameter])  THEN "Exclude"  ELSE  IF DATEPART('year',[Date Closed])<>datepart('year',[Calculation_1541127102911100])  THEN "Exclude"  ELSE "Include"  END  END
+AFTER:  IF DATEPART('month',[Date Closed])<>datepart('month',#2018-03-31#)  THEN "Exclude"  ELSE  IF DATEPART('year',[Date Closed])<>datepart('year',[Calculation_1541127102911100])  THEN "Exclude"  ELSE "Include"  END  END
+stillHasParameters=false  stillHasFederated=false

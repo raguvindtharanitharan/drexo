@@ -1,0 +1,49 @@
+{"name":"[Amplified Quota (copy)]","caption":"Quota Unamplified","datatype":"integer","value":"234000000"}
+{"name":"[Bookings Type (Amplified vs. Unamplified) (copy) 1]","caption":"_Include/Exclude Bundled Perpetual in Ratable Calc","datatype":"string","value":"\"Include Bundled Perpetual in Ratable Calc\""}
+{"name":"[Bookings Type (Amplified vs. Unamplified) (copy)]","caption":"Competitive Basis (# vs $)","datatype":"string","value":"\"Transactions\""}
+{"name":"[Core Multiple (Post-Feb17) (copy 2) (copy)]","caption":"Core Multiple - Enterprise (Post-Mar17)","datatype":"real","value":"1.8600000000000001"}
+{"name":"[Core Multiple (Post-Feb17) (copy 2)]","caption":"Core Multiple - Commercial (Post-Mar17)","datatype":"real","value":"2.0699999999999998"}
+{"name":"[Core Multiple (Post-Feb17) (copy)]","caption":"Core Multiple (Pre-Feb17)","datatype":"real","value":"2.0"}
+{"name":"[Custom Pipeline Weighting (copy)]","caption":"Revenue View","datatype":"string","value":"\"Custom Pipeline Weighted\""}
+{"name":"[Date Closed Parameter]","caption":"Last Day of Current Month","datatype":"date","value":"#2018-03-31#"}
+{"name":"[Date Range (copy 2)]","caption":"Quota Amplified","datatype":"integer","value":"250000000"}
+{"name":"[Date Range (copy)]","caption":"Bookings Type","datatype":"string","value":"\"Unamplified Bookings\""}
+{"name":"[FY16 High-end Revenue Guidance (copy 2)]","caption":"FY16 High-end Oper Inc Guidance","datatype":"real","value":"70.0"}
+{"name":"[Guaranteed Rooms (copy 2)]","caption":"Flight Route","datatype":"integer","value":"3"}
+{"name":"[Guaranteed Rooms (copy)]","caption":"Fixed Room Rate","datatype":"integer","value":"300"}
+{"name":"[Item Amount List Parameter]","caption":"Users per Core (if 1 then Core Count)","datatype":"integer","value":"50"}
+{"name":"[OEM Distribution (Pre-Feb17) (copy)]","caption":"Maintenance Allocation Adjustment %","datatype":"real","value":"0.20000000000000001"}
+{"name":"[Parameter 1 1]","caption":"Region / Travel","datatype":"integer","value":"1"}
+{"name":"[Parameter 1 20]","caption":"Tableau Online Multiple (Pre-Feb17)","datatype":"real","value":"2.0"}
+{"name":"[Parameter 1 2]","caption":"Q116 High-end Revenue Guidance","datatype":"real","value":"165.0"}
+{"name":"[Parameter 1 3]","caption":"As of Date (MBR)","datatype":"date","value":"#2017-07-31#"}
+{"name":"[Parameter 1 4]","caption":"Select Baseline Forecast Version","datatype":"string","value":"\"2017_V0 (Plan)\""}
+{"name":"[Parameter 1 5]","caption":"As of Date (Fixed Assets)","datatype":"date","value":"#2017-07-31#"}
+{"name":"[Parameter 1]","caption":"List Period (days)","datatype":"integer","value":"365"}
+{"name":"[Parameter 2 1 1]","caption":"Date Detail (MBR)","datatype":"string","value":"\"Month\""}
+{"name":"[Parameter 2 1]","caption":"Custom Pipeline Weighting 1","datatype":"real","value":"0.38"}
+{"name":"[Parameter 2 2]","caption":"Custom Pipeline Weighting","datatype":"real","value":"0.40000000000000002"}
+{"name":"[Parameter 2]","caption":"Max CPU","datatype":"integer","value":"90"}
+{"name":"[Parameter 3 1]","caption":"Overspend Sort","datatype":"integer","value":"0"}
+{"name":"[Q111 Bookings Quota (copy)]","caption":"Pipeline Bookings Weighting","datatype":"string","value":"\"Unweighted\""}
+{"name":"[Q116 High-end EPS Guidance (copy 3)]","caption":"Q216 High-end EPS Guidance","datatype":"real","value":"0.059999999999999998"}
+{"name":"[Q116 High-end EPS Guidance (copy)]","caption":"FY16 High-end EPS Guidance","datatype":"real","value":"0.60999999999999999"}
+{"name":"[Q116 High-end Revenue Guidance (copy 2)]","caption":"Q116 High-end EPS Guidance","datatype":"real","value":"-0.080000000000000002"}
+{"name":"[Q116 High-end Revenue Guidance (copy 4)]","caption":"Q216 High-end Revenue Guidance","datatype":"real","value":"195.0"}
+{"name":"[Q116 High-end Revenue Guidance (copy 5)]","caption":"Q116 High-end Oper Inc Guidance","datatype":"real","value":"165.0"}
+{"name":"[Q116 High-end Revenue Guidance (copy)]","caption":"FY16 High-end Revenue Guidance","datatype":"real","value":"855.0"}
+{"name":"[Q216 High-end EPS Guidance (copy)]","caption":"Q316 High-end EPS Guidance","datatype":"real","value":"-999999.0"}
+{"name":"[Q216 High-end Revenue Guidance (copy 2)]","caption":"Q216 High-end Oper Inc Guidance","datatype":"real","value":"7.0"}
+{"name":"[Q216 High-end Revenue Guidance (copy)]","caption":"Q316 High-end Revenue Guidance","datatype":"real","value":"0.0"}
+{"name":"[Q316 High-end EPS Guidance (copy)]","caption":"Q416 High-end EPS Guidance","datatype":"real","value":"-999999.0"}
+{"name":"[Q316 High-end Revenue Guidance (copy 2)]","caption":"Q316 High-end Oper Inc Guidance","datatype":"real","value":"23.0"}
+{"name":"[Q316 High-end Revenue Guidance (copy)]","caption":"Q416 High-end Revenue Guidance","datatype":"real","value":"0.0"}
+{"name":"[Q416 High-end Revenue Guidance (copy)]","caption":"Q416 High-end Oper Inc Guidance","datatype":"real","value":"38.0"}
+{"name":"[Region / Travel (copy)]","caption":"Cost per Night Limit","datatype":"integer","value":"2000"}
+{"name":"[SELA Multiple (Post-Feb 2017) (copy)]","caption":"Subscription Multiple (Post-Feb17)","datatype":"real","value":"2.3799999999999999"}
+{"name":"[SELA Multiple (Pre-Feb 2017) (copy)]","caption":"Subscription Multiple (Pre-Feb17)","datatype":"real","value":"2.0"}
+{"name":"[Select Baseline Forecast Version (copy)]","caption":"Select Comparison Forecast Version","datatype":"string","value":"\"2017_V2 (2017.03.24)\""}
+{"name":"[Subscription Multiple (Post-Feb17) (copy)]","caption":"Core Multiple (Post-Feb17)","datatype":"real","value":"2.1699999999999999"}
+{"name":"[Tableau Online Multiple (Post-Feb 2017) (copy)]","caption":"SELA Multiple (Post-Feb17)","datatype":"real","value":"2.3799999999999999"}
+{"name":"[Tableau Online Multiple (Pre-Feb 2017) (copy 2)]","caption":"SELA Multiple (Pre-Feb17)","datatype":"real","value":"2.0"}
+{"name":"[Tableau Online Multiple (Pre-Feb 2017) (copy)]","caption":"Tableau Online Multiple (Post-Feb17)","datatype":"real","value":"2.0"}

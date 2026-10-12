@@ -1,0 +1,34 @@
+PARAM COUNT: 49
+P {"name":"Quota Unamplified","dataType":"integer","currentValue":"234000000"}
+P {"name":"_Include/Exclude Bundled Perpetual in Ratable Calc","dataType":"string","currentValue":"\"Include Bundled Perpetual in Ratable Calc\""}
+P {"name":"Competitive Basis (# vs $)","dataType":"string","currentValue":"\"Transactions\""}
+P {"name":"Core Multiple - Enterprise (Post-Mar17)","dataType":"real","currentValue":"1.8600000000000001"}
+P {"name":"Core Multiple - Commercial (Post-Mar17)","dataType":"real","currentValue":"2.0699999999999998"}
+P {"name":"Core Multiple (Pre-Feb17)","dataType":"real","currentValue":"2.0"}
+P {"name":"Revenue View","dataType":"string","currentValue":"\"Custom Pipeline Weighted\""}
+P {"name":"Last Day of Current Month","dataType":"date","currentValue":"#2018-03-31#"}
+P {"name":"Quota Amplified","dataType":"integer","currentValue":"250000000"}
+P {"name":"Bookings Type","dataType":"string","currentValue":"\"Unamplified Bookings\""}
+P {"name":"FY16 High-end Oper Inc Guidance","dataType":"real","currentValue":"70.0"}
+P {"name":"Flight Route","dataType":"integer","currentValue":"3"}
+P {"name":"Fixed Room Rate","dataType":"integer","currentValue":"300"}
+P {"name":"Users per Core (if 1 then Core Count)","dataType":"integer","currentValue":"50"}
+P {"name":"Maintenance Allocation Adjustment %","dataType":"real","currentValue":"0.20000000000000001"}
+P {"name":"Region / Travel","dataType":"integer","currentValue":"1"}
+P {"name":"Tableau Online Multiple (Pre-Feb17)","dataType":"real","currentValue":"2.0"}
+P {"name":"Q116 High-end Revenue Guidance","dataType":"real","currentValue":"165.0"}
+P {"name":"As of Date (MBR)","dataType":"date","currentValue":"#2017-07-31#"}
+P {"name":"Select Baseline Forecast Version","dataType":"string","currentValue":"\"2017_V0 (Plan)\""}
+P {"name":"As of Date (Fixed Assets)","dataType":"date","currentValue":"#2017-07-31#"}
+P {"name":"List Period (days)","dataType":"integer","currentValue":"365"}
+P {"name":"Date Detail (MBR)","dataType":"string","currentValue":"\"Month\""}
+P {"name":"Custom Pipeline Weighting 1","dataType":"real","currentValue":"0.38"}
+P {"name":"Custom Pipeline Weighting","dataType":"real","currentValue":"0.40000000000000002"}
+
+FORMULAS referencing Parameters:
+[Adjusted Tot Proj Current Period Revenue] => IF [Parameters].[Custom Pipeline Weighting (copy)]="Actual Bookings"&#13;&#10;THEN [Tot Proj Current Period Revenue (Incl Pipeline) (copy)]&#13;&#10;ELSE&#13;&#10;IF [Parameters].[Custom Pipeline Weighting (copy)]="Standard Pipeline Weighted"&#13;&#10;THEN [Calculation_4191120164040496]&#13;&#10;ELSE&#13;&#10;IF [Param
+[Bookings Stage Adjustment (Custom)] => IF [Opportunity Stage]="Closed Won"&#13;&#10;THEN 1&#13;&#10;ELSE&#13;&#10;IF [Opportunity Stage]="Commit"&#13;&#10;THEN [Parameters].[Parameter 2 2]&#13;&#10;ELSE&#13;&#10;IF [Opportunity Stage]="Select - Pending Delivery"&#13;&#10;THEN [Parameters].[Parameter 2 2]&#13;&#10;ELSE&#13;&#10;IF [Opportunity Stage]="Select
+[Current Period End Date] => DATEADD('day',-1,DATEADD('month',3,DATETRUNC('quarter',[Parameters].[Date Closed Parameter])))
+[Adjustable Bookings] => IF [Parameters].[Custom Pipeline Weighting (copy)]="Actual Bookings"&#13;&#10;THEN [Calculation_0120424090323953]&#13;&#10;ELSE&#13;&#10;IF [Parameters].[Custom Pipeline Weighting (copy)]="Standard Pipeline Weighted"&#13;&#10;THEN [Calculation_3170329165527412]&#13;&#10;ELSE&#13;&#10;IF [Parameters].[Custom Pipeline We
+[Current vs Prior Month Booking] => IF DATEPART('month',[Date Closed])<>datepart('month',[Parameters].[Date Closed Parameter])&#13;&#10;THEN "Exclude"&#13;&#10;ELSE&#13;&#10;IF DATEPART('year',[Date Closed])<>datepart('year',[Calculation_1541127102911100])&#13;&#10;THEN "Exclude"&#13;&#10;ELSE "Include"&#13;&#10;END&#13;&#10;END
+[Adjustable Current Period GAAP Revenue] => IF [Parameters].[Custom Pipeline Weighting (copy)]="Actual Bookings"&#13;&#10;THEN 0&#13;&#10;ELSE&#13;&#10;IF [Parameters].[Custom Pipeline Weighting (copy)]="Standard Pipeline Weighted"&#13;&#10;THEN [Current Month GAAP Revenue (Closed Won) (copy)]&#13;&#10;ELSE&#13;&#10;IF [Parameters].[Custom Pipeline Weighting (co

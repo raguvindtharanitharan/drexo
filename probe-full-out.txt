@@ -1,0 +1,68 @@
+=== Worksheets and their selectedMeasures ===
+[Bookings-Consol] selectedMeasures=[]
+[GAAP Rev-Consol] selectedMeasures=[]
+[Lic-Consol] selectedMeasures=[]
+[Main-Consol] selectedMeasures=[]
+[Proj Rev-Consol] selectedMeasures=[]
+[Sheet 8] selectedMeasures=[]
+[Tot Rev-Consol] selectedMeasures=[]
+[YTD Rev-Consol] selectedMeasures=[]
+
+=== Generated query specs ===
+--- Bookings-Consol ---
+{
+  "source": "forecast",
+  "dimensions": [],
+  "measures": [],
+  "filterFields": [],
+  "pivotOn": {
+    "expr": "CAST(DATEPART('year', \"Date Closed\"::DATE) AS VARCHAR) || '-Q' || CAST(DATEPART('quarter', \"Date Closed\"::DATE) AS VARCHAR)",
+    "values": [],
+    "measureExpr": "CASE WHEN 'Custom Pipeline Weighted'='Actual Bookings' THEN (CASE WHEN \"Opportunity Stage\"='Closed Won' THEN \"Item Amount Total\" ELSE 0 END) ELSE CASE WHEN 'Custom Pipeline Weighted'='Standard Pipeline Weighted' THEN (\"Item Amount Total\"*(CASE WHEN \"Opportunity Stage\"='Closed Won' THEN 1 ELSE CASE WHEN \"Opportunity Stage\"='Commit' THEN .83 ELSE CASE WHEN \"Opportunity Stage\"='Select - Pending Delivery' THEN .99 ELSE CASE WHEN \"Opportunity Stage\"='Select' THEN .70 ELSE CASE WHEN \"Opportunity Stage\"='Decide' THEN .6 ELSE CASE WHEN \"Opportunity Stage\"='Validate' THEN .4 ELSE CASE WHEN \"Opportunit
+--- GAAP Rev-Consol ---
+{
+  "source": "forecast",
+  "dimensions": [],
+  "measures": [
+    {
+      "alias": "Total",
+      "expr": "SUM(\"Item Amount Total\")"
+    }
+  ],
+  "filterFields": []
+}
+--- Proj Rev-Consol ---
+{
+  "source": "forecast",
+  "dimensions": [],
+  "measures": [],
+  "filterFields": [],
+  "pivotOn": {
+    "expr": "CAST(DATEPART('year', \"Date Closed\"::DATE) AS VARCHAR) || '-Q' || CAST(DATEPART('quarter', \"Date Closed\"::DATE) AS VARCHAR)",
+    "values": [],
+    "measureExpr": "CASE WHEN (CASE WHEN \"Product Type\"=\"'THEN 'Non-Revenue Product Types'ELSE 'Deferred Revenue Recognition\" END)='Upfront Revenue Recognition' THEN (\"Item Amount Total\"*(1))*(CASE WHEN (CASE WHEN DATEPART('month',\"Date Closed\")<>datepart('month',DATE '2018-03-31') THEN 'Exclude' ELSE CASE WHEN DATEPART('year',\"Date Closed\")<>datepart('year',(DATEADD('day',-1,DATEADD('month',3,DATETRUNC('quarter',DATE '2018-03-31'))))) THEN 'Exclude' ELSE 'Include' END END)='Include' THEN 1 ELSE 0 END) ELSE CASE WHEN (DATEADD('day',-1,DATEADD('month',3,DATETRUNC('quarter',DATE '2018-03-31'))))-\"Date Maintenance Start\"+
+--- Sheet 8 ---
+{
+  "source": "forecast",
+  "dimensions": [],
+  "measures": [
+    {
+      "alias": "Total",
+      "expr": "SUM(\"Item Amount Total\")"
+    }
+  ],
+  "filterFields": []
+}
+--- YTD Rev-Consol ---
+{
+  "source": "forecast",
+  "dimensions": [],
+  "measures": [],
+  "filterFields": [],
+  "pivotOn": {
+    "expr": "CAST(DATEPART('year', \"Date Closed\"::DATE) AS VARCHAR) || '-Q' || CAST(DATEPART('quarter', \"Date Closed\"::DATE) AS VARCHAR)",
+    "values": [],
+    "measureExpr": "\"Item Amount Total\"",
+    "totalAlias": "Total GAAP Revenue (Variable View)"
+  }
+}
